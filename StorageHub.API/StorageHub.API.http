@@ -1,0 +1,6 @@
+@StorageHub.API_HostAddress = http://localhost:5211
+
+GET {{StorageHub.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

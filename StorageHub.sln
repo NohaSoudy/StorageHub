@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageHub.API", "StorageHub.API\StorageHub.API.csproj", "{204F90ED-360D-4696-8108-A208AFD23B02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SotrageHub.Application", "SotrageHub.Application\SotrageHub.Application.csproj", "{E73A7372-8DDE-474E-8664-259D3B36AD12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageHub.Domain", "StorageHub.Domain\StorageHub.Domain.csproj", "{62AA55B2-8E74-45EC-ACCB-F460E7294FCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageHub.Infrastructure", "StorageHub.Infrastructure\StorageHub.Infrastructure.csproj", "{3186A323-B471-43F4-B28A-378C4BAE7301}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{204F90ED-360D-4696-8108-A208AFD23B02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{204F90ED-360D-4696-8108-A208AFD23B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{204F90ED-360D-4696-8108-A208AFD23B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{204F90ED-360D-4696-8108-A208AFD23B02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E73A7372-8DDE-474E-8664-259D3B36AD12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E73A7372-8DDE-474E-8664-259D3B36AD12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E73A7372-8DDE-474E-8664-259D3B36AD12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E73A7372-8DDE-474E-8664-259D3B36AD12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62AA55B2-8E74-45EC-ACCB-F460E7294FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62AA55B2-8E74-45EC-ACCB-F460E7294FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62AA55B2-8E74-45EC-ACCB-F460E7294FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62AA55B2-8E74-45EC-ACCB-F460E7294FCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3186A323-B471-43F4-B28A-378C4BAE7301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3186A323-B471-43F4-B28A-378C4BAE7301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3186A323-B471-43F4-B28A-378C4BAE7301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3186A323-B471-43F4-B28A-378C4BAE7301}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
