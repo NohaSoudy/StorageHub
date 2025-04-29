@@ -4,8 +4,9 @@ This project is a **storage microservice** designed to handle **file uploads**, 
 
 - **MinIO** (S3-compatible Object Storage)
 - **SQL Server / SQLite / In-Memory Database** for metadata storage
-- **.NET 9 Web API**
+- **.NET 9 Core Web API**
 - **Clean Code** and **Best Practices**
+- Using **Swagger UI** for testing APT and JWT 
 
 ## Features
 
@@ -44,7 +45,7 @@ cd filehub-microservice
 
 ```
 ### 2. Set Up MinIO Using Docker (Free)
-The application support setup Minio at runtime if it does not exist
+The application supports setting up Minio at runtime if it does not exist
 
 - **Console**: https://play.min.io
 - **Login**: minioadmin / minioadmin
@@ -61,6 +62,13 @@ minio/minio server /data --console-address ":9001"
 ```
 
 ### 3. Configure the Application
+**Login Credential in Swagger**
+```json
+  "LoginSettings": {
+    "UserName": "admin",
+    "Password": "admin"
+  },
+```
 **Database Connection (InMemory is used)**
 Change the provider value to switch to another Database
 ```json
@@ -84,3 +92,34 @@ Change the provider value to switch to another Database
    "UseSSL": false
  },
 ```
+
+### 4. Install Required NuGet Packages
+Open Package Manager Console and run (if one of them is missing):
+```powershell
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
+Install-Package Microsoft.EntityFrameworkCore.Sqlite
+Install-Package Microsoft.EntityFrameworkCore.InMemory
+Install-Package AWSSDK.S3
+Install-Package Minio
+Install-Package AutoMapper.Extensions.Microsoft.DependencyInjection
+```
+
+### 5. Apply Database Migrations (Skip if using InMemory)
+The initial migration is added to the solution, and the migration is running at runtime.
+
+For manual step :
+```powershell
+Add-Migration InitialCreate
+Update-Database
+```
+### 6. Run the Application
+If using IISExpress ==>  "https://localhost:44301/swagger/index.html"
+
+If using https ==> https://localhost:7134/swagger/index.html
+
+For manual step :
+```powershell
+Add-Migration InitialCreate
+Update-Database
+```
+
