@@ -2,11 +2,11 @@
 
 ## Table of Contents
 
-- [Project Description](#ProjectDescription)
+- [Project Description](#Project-Description)
 - [Technologies](#Technologies)
 - [Features](#Features)
-- [Project Structure](#ProjectStructure)
-- [Setup Instructions](#SetupInstructions)
+- [Project Structure](#Project-Structure)
+- [Setup Instructions](#Setup-Instructions)
 - [License](#License)
 - [Author](#Author)
 - 
