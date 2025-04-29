@@ -135,6 +135,13 @@ The API will start at: http://localhost:5211/swagger/index.html
 
 ---
 
+## License
+
+- **StorageHub Microservice version 1.0**
+
+## Author
+
+- **Noha Hamdy**
 
 
 
