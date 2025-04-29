@@ -113,7 +113,7 @@ Add-Migration InitialCreate
 Update-Database
 ```
 ### 6. Run the Application
-If using IISExpress ==>  "https://localhost:44301/swagger/index.html"
+If using IISExpress ==>  https://localhost:44301/swagger/index.html
 
 If using https ==> https://localhost:7134/swagger/index.html
 
@@ -122,4 +122,19 @@ For running using PowerShell:
 dotnet run
 ```
 The API will start at: http://localhost:5211/swagger/index.html
+
+### 7. API Application
+
+| Method              | Endpoint                           | Description    |
+|---------------------|-----------------------------------|----------------|
+| **POST**            | /api/FileHub/Upload               | Upload File    |
+| **GET**             | /api/FileHub/Download/{id}       | Download File |
+| **GET**             | /api/FileHub/ListAllFiles        | List All Files |
+| **DELETE**          | /api/FileHub/Delete/{id}         | Delete File (Soft Delete) |
+| **DELETE**          | /api/FileHub/DeletePermanently/{id} | Delete File Permanently (Hard Deleted )  |
+
+---
+
+
+
 
