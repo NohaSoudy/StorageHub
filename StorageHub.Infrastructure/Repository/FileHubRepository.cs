@@ -15,6 +15,10 @@ namespace StorageHub.Infrastructure
         {
             return await _context.FileHub.FindAsync(id);
         }
+        public Task<FileHub> GetFileByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<IEnumerable<FileHub>> GetAllFilesAsync()
         {
@@ -65,10 +69,6 @@ namespace StorageHub.Infrastructure
             }
         }
 
-        public Task<FileHub> GetFileByNameAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }

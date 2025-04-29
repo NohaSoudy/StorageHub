@@ -16,10 +16,11 @@ namespace StorageHub.API.Controllers
     public class AuthenticateController : ControllerBase
     {
         private readonly JWTSettings _jwtSettings;
-
-        public AuthenticateController(IOptions<JWTSettings> jwtSettings)
+        private readonly LoginSettings _loginSettings;
+        public AuthenticateController(IOptions<JWTSettings> jwtSettings, IOptions<LoginSettings> loginSettings)
         {
             _jwtSettings = jwtSettings.Value;
+            _loginSettings = loginSettings.Value;
         }
 
 
@@ -27,7 +28,7 @@ namespace StorageHub.API.Controllers
         public IActionResult Login([FromBody] LoginDTO request)
         {
            
-            if (request.Username == "admin" && request.Password == "password")
+            if (request.Username == _loginSettings.Username && request.Password == _loginSettings.Password)
             {
                 var token = GenerateJwtToken(request.Username);
                 return Ok(new { token });

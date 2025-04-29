@@ -67,9 +67,10 @@ else
 builder.Services.AddScoped<IFileHubService, FileHubService>();
 builder.Services.AddScoped<IFileHubRepository, FileHubRepository>();
 
+//Login settings
+builder.Services.Configure<LoginSettings>(builder.Configuration.GetSection("LoginSettings"));
 
 //Configure JWT
-// Register JWT settings into DI (optional but useful)
 builder.Services.Configure<JWTSettings>(builder.Configuration.GetSection("JWT"));
 
 builder.Services.AddAuthentication(options =>
