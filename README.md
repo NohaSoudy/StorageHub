@@ -12,20 +12,19 @@ This project is a **storage microservice** designed to handle **file uploads**, 
 - **File Upload**: Save file content to **MinIO** and metadata to a database.
 - **File Management**: Download and delete files from **MinIO**.
 - **Flexible Database**: Supports **SQL Server**, **SQLite**, and **In-Memory** databases.
-- **Enum Handling**: Uses enums for file types (e.g., `Image`, `Video`, etc.) and converts to strings.
+- **Enum Handling**: Uses enums for storage types (e.g., `SQLite`, `SQL Server`, `In-Memory`) and converts to strings.
 - **Dynamic Database Configuration**: Easily switch between different database providers (SQL Server, SQLite, In-Memory).
 
 ## Project Structure
 
 | Layer               | Description                                |
 |---------------------|--------------------------------------------|
-| **Controllers**      | Handles HTTP requests.                    |
-| **Services**         | Contains business logic (file upload, download, delete). |
-| **Repositories**     | Handles database operations (saving metadata). |
-| **Data**             | Includes `DbContext` and models for file metadata. |
-| **Enums**            | Enum definitions for file types (`FileType`). |
-| **DTOs**             | Data Transfer Objects for API communication. |
-| **Helpers**          | MinIO client setup and utility functions. |
+| **API**      | Handles HTTP requests.                    |
+| **Application**         | Contains business logic (file upload, download, delete), DTOs, AuotMapper. |
+| **Infrastructure**     | Handles database operations (saving metadata). |
+|             | Includes `DbContext` and models for file metadata. |
+|        | Helpers -- MinIO client setup and utility functions. |
+| **Domain**          | Entity represents tables in database. |
 
 ---
 
