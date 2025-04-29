@@ -1,4 +1,4 @@
-# FileHub Storage Microservice
+# StorageHub Microservice
 
 This project is a **storage microservice** designed to handle **file uploads**, **metadata management**, and **file storage** using:
 
