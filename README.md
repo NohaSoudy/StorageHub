@@ -9,7 +9,7 @@
 - [Setup Instructions](#Setup-Instructions)
 - [License](#License)
 - [Author](#Author)
-- 
+  
 ## Project Description
 
 This project is a **storage microservice** designed to handle **file uploads**, **metadata management**, and **file storage**
