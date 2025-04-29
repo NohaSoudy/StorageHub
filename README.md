@@ -1,6 +1,20 @@
 # StorageHub Microservice
 
-This project is a **storage microservice** designed to handle **file uploads**, **metadata management**, and **file storage** using:
+## Table of Contents
+
+- [Project Description](#ProjectDescription)
+- [Technologies](#Technologies)
+- [Features](#Features)
+- [Project Structure](#ProjectStructure)
+- [Setup Instructions](#SetupInstructions)
+- [License](#License)
+- [Author](#Author)
+- 
+## Project Description
+
+This project is a **storage microservice** designed to handle **file uploads**, **metadata management**, and **file storage**
+
+## Technologies
 
 - **MinIO** (S3-compatible Object Storage)
 - **SQL Server / SQLite / In-Memory Database** for metadata storage
