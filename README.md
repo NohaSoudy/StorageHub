@@ -117,9 +117,9 @@ If using IISExpress ==>  "https://localhost:44301/swagger/index.html"
 
 If using https ==> https://localhost:7134/swagger/index.html
 
-For manual step :
-```powershell
-Add-Migration InitialCreate
-Update-Database
+For running using PowerShell:
+```bash
+dotnet run
 ```
+The API will start at: http://localhost:5211/swagger/index.html
 
