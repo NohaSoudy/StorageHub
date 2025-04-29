@@ -1,4 +1,4 @@
-﻿namespace StorageHub.API.Helper
+﻿namespace StorageHub.Infrastructure
 {
     public class JWTSettings
     {

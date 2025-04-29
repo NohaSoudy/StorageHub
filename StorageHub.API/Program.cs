@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SotrageHub.Application;
 using StorageHub.Infrastructure;
-using StorageHub.API.Helper;
+using StorageHub.API;
 using Microsoft.OpenApi.Models;
+using Amazon.Runtime;
+using Amazon.S3;
 
 
 
@@ -15,10 +17,51 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Setup MinIO connection
+builder.Services.Configure<MinioSettings>(builder.Configuration.GetSection("MinioSettings"));
+var credentials = new BasicAWSCredentials(
+builder.Configuration["MinioSettings:AccessKey"], // AccessKey
+builder.Configuration["MinioSettings:SecretKey"] // SecretKey
+);
+
+var config = new AmazonS3Config
+{
+    ServiceURL = builder.Configuration["MinioSettings:Endpoint"],
+    ForcePathStyle = true
+};
+
+var s3Client = new AmazonS3Client(credentials, config);
+builder.Services.AddSingleton<IAmazonS3>(s3Client);
+
+// Setup database connection
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
+var databaseProvider = builder.Configuration.GetValue<string>("DatabaseSettings:Provider");
+var databaseName = builder.Configuration.GetValue<string>("DatabaseSettings:InMemory");
+
+
+
+if (databaseProvider == DatabaseProvider.SQLite.ToString())
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("SQLite")));
+}
+else if (databaseProvider == DatabaseProvider.SQLServer.ToString())
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer")));
+}
+else if (databaseProvider == DatabaseProvider.InMemory.ToString())
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseInMemoryDatabase(databaseName));
+}
+else
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("SQLite")));
+}
 
 //DI
 builder.Services.AddScoped<IFileHubService, FileHubService>();
@@ -41,16 +84,16 @@ builder.Services.AddAuthentication(options =>
     o.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-         ValidateIssuer = true,
-         ValidateAudience = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
         ValidateLifetime = true,
-         ValidIssuer = builder.Configuration["JWT:Issuer"],
-         ValidAudience = builder.Configuration["JWT:Audience"],
-         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"]))
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"]))
     };
 }
     );
-
+//Configure Swagger
 //builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -85,7 +128,10 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = 52428800; // 50 MB
+});
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
@@ -101,12 +147,28 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//Apply migrations at runtime
-using (var scope = app.Services.CreateScope())
+//Apply migrations at runtime for SQLite and SQLServer
+if (databaseProvider != DatabaseProvider.InMemory.ToString())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate(); // Applies any pending migrations
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        db.Database.EnsureCreated(); // Applies any pending migrations
+    }
 }
 
+
+// Auto create MinIO bucket
+using (var scope = app.Services.CreateScope())
+{
+    var minioClient = scope.ServiceProvider.GetRequiredService<IAmazonS3>();
+    var bucketName = builder.Configuration["MinioSettings:BucketName"];
+
+    var listBucketsResponse = await minioClient.ListBucketsAsync();
+    if (!listBucketsResponse.Buckets.Any(b => b.BucketName == bucketName))
+    {
+        await minioClient.PutBucketAsync(bucketName);
+    }
+}
 
 app.Run();

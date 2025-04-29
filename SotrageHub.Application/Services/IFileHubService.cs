@@ -12,9 +12,9 @@ namespace SotrageHub.Application
     {
         Task<int> SaveFileAsync(IFormFile file);
         Task<FileHubDTO> GetFileById(Guid id);
-        Task<Stream?> GetFileStreamAsync(string fileName);
+        Task<byte[]> GetFileStreamAsync(string fileName);
         Task<IEnumerable<FileHubDTO>> GetAllFiles();
-        bool DeleteFile(Guid id);
-        bool DeleteFilePermanently(Guid id);
+        Task<bool> DeleteFile(Guid id);
+        Task<bool> DeleteFilePermanently(Guid id);
     }
 }

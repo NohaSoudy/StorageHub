@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SotrageHub.Application;
-using StorageHub.API.Helper;
+using StorageHub.Infrastructure;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

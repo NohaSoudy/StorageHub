@@ -1,16 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 
 namespace StorageHub.Infrastructure
 {
     public class FileHubRepository : IFileHubRepository
     {
         private readonly AppDbContext _context;
-
-        public FileHubRepository (AppDbContext context)
+        public FileHubRepository(AppDbContext context)
         {
             _context = context;
         }
-
+      
         public async Task<FileHub> GetFileByIdAsync(Guid id)
         {
             return await _context.FileHub.FindAsync(id);
